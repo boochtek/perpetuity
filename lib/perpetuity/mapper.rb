@@ -135,7 +135,7 @@ module Perpetuity
         cached_value = identity_map[mapped_class, id]
         return cached_value if cached_value
 
-        result = select { |object| id_for(object) == id }.first
+        result = data_source.find(mapped_class, id)
 
         if cache_result and !result.nil?
           identity_map << Duplicator.new(result).object
